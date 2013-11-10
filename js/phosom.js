@@ -402,7 +402,7 @@ $( document ).ready(function(){
 		gapi.client.autoChallengeGameService.getChallengeAndResponseInfo({
 			'gameId':g_activeGame.key.id,
 			'playerId':g_activeUser.key.id,
-			'size':Math.round($content.parent().width() / 2.2)
+			'size':Math.round($content.parent().width() / 2.8)
 		}).execute(function(challengesInfo){
 			
 			if( challengesInfo.error ) {
@@ -439,7 +439,7 @@ $( document ).ready(function(){
 						'style':'display:block;white-space:pre-wrap;'}) );
 					$responseDiv.append( $('<img/>',{
 						'src':oneChallenge.responsePhotoUrl, 'style':'padding:5px;'}) );
-					$responseDiv.append( $('<a/>', {
+                    $responseDiv.append( $('<a/>', {
 						'text':'Source: '+oneChallenge.responsePhotoSourceTitle, 
 						'href':oneChallenge.responsePhotoSourceUrl, 'target':'_blank', 
 						'style':'display:block;white-space:pre-wrap;'}) );
@@ -457,7 +457,8 @@ $( document ).ready(function(){
 					} else {
 						gradingText += ' :-)';
 					}
-					$scoreDiv.append( $('<h3/>',{'text': gradingText}) );
+					$scoreDiv.append( $('<h3/>',{
+                        'text': gradingText, 'style':'white-space:pre-wrap;'}) );
 					
 //					if( oneChallenge.playerId == g_activeUser.key.id ) {
 //						var $collapsibleSetDIV = $('<div/>', {'data-role': 'collapsible-set'});
