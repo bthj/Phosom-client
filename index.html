@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		
+		<title>Phosom</title>
+		   
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
+		
+		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/jquery.waitforimages.min.js"></script>
+		<script src="js/phosom.js"></script>
+		<script src="js/simi.js"></script>
+		<script src="//code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
+		
+		<script src="//apis.google.com/js/client.js?onload=endpointinit"></script>
+	</head>
+
+	<body>
+		<div data-role="page" id="phosom-index">
+			<div data-role="header">
+				<h1>Phosom</h1>
+			</div>
+			<div data-role="content">
+				<input type="button" id="btn-create-game" value="Create a game" />
+				<div style="text-align:center;">
+					<em>
+						In future versions, the next step would present you with what game types to create - automatic challenges from the web (exercise mode?), camera challenges (duels, multi player), category challenges, etc. but for now:  
+						<br/>Get a random photo and (compete with others to) find the most similar one
+					</em>
+				</div>
+				<br>
+				<input type="button" id="btn-game-overview" value="View played games" />
+				<div style="text-align:center;">
+					<em>See the games you've played and their status</em>
+				</div>
+				<br>
+				<input type="button" id="btn-game-join" value="Join a game" />
+				<div style="text-align:center;">
+					<em>Join a game someone sent you</em>
+				</div>
+			</div>
+		</div>
+		
+		<div data-role="page" id="phosom-game-creation">
+			<div data-role="header">
+				<h1>Phosom - game baking</h1>
+			</div>
+			<div data-role="content">
+			
+			</div>		
+		</div>
+		
+		<div data-role="page" id="phosom-one-challenge">
+			<div data-role="header">
+				<h1>Phosom - one challenge</h1>
+			</div>
+			<div data-role="content">
+
+			</div>
+		</div>
+		
+		<div data-role="page" id="phosom-challenge-response">
+			<div data-role="header">
+				<h1>Phosom - challenge response</h1>
+			</div>
+			<div data-role="content">
+				<h2>one challenge!</h2>
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="false">
+						<h3>Find a response image</h3>
+						<form action="/imagesearch" method="post" id="image-search">
+							<label for="input-image-search">Image search:</label>
+							<input type="search" name="image-search" id="input-image-search" value="" 
+								placeholder="Image search keyword(s)..." />
+							<input type="submit" value="Find some!" />
+						</form>
+						<div class="gallery"></div>
+					</div>
+					<div data-role="collapsible">
+						<h3>Post an URL to a response image</h3>
+						<form action="/respondwithurl" method="post" id="respond-with-url">
+							<label for="challenge-response-with-url">URL to an image:</label>
+							<input type="text" name="url" id="challenge-response-with-url" value="" />
+							<input type="submit" value="Send it!" />
+						</form>
+					</div>
+					<div data-role="collapsible">
+						<h3>Upload a response image</h3>
+						<label for="file">Image file (TODO):</label>
+						<input type="file" name="image" id="image" value="">
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div data-role="page" id="phosom-challenge-result">
+			<div data-role="header">
+				<h1>Phosom - challenge result</h1>
+			</div>
+			<div data-role="content">
+			
+			</div>
+		</div>
+		
+		<div data-role="page" id="phosom-get-user">
+			<div data-role="header">
+				<h1>Phosom - login</h1>
+			</div>
+			<div data-role="content">
+				<form action="/login" method="post" id="login">
+					<label for="name">Player name</label>
+					<input type="text" name="name" id="name" value="" />
+					
+					<input type="submit" value="Go!" />
+				</form>			
+			</div>
+		</div>
+		
+		<div data-role="page" id="phosom-challenges-overview">
+			<div data-role="header">
+				<h1>Phosom - challenges you've played</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true">
+					
+				</ul>
+			</div>
+		</div>
+		
+		<div data-role="page" id="phosom-game-join">
+			<div data-role="header">
+				<h1>Phosom - join a game</h1>
+			</div>
+			<div data-role="content">
+				<h3>Join a game <em>someone</em> else made</h3>
+				<form action="/joingame" method="post" id="form-game-join">
+					<label for="text-game-id">Enter number of game to join</label>
+					<input type="text" name="game-id" id="text-game-id" value="" />
+					<input type="submit" value="Join game!" />
+				</form>
+			</div>
+		</div>
+		
+		<div data-role="page" id="reset">
+		    <div data-role="header">
+		        <h1>Reset</h1>
+		    </div>
+		    <div data-role="content">
+		        <h2>Resetteted storage!</h2>
+		    </div>
+		</div>
+		
+	</body>
+</html>
