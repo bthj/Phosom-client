@@ -337,7 +337,7 @@ $( document ).ready(function(){
 		gapi.client.gameService.getChallengePhotoUrl({
 			'bucket':'auto-challenge-photos', 
 			'filename': getFileNameFromURL( g_activeGame.challengeInfo.challengePhotoUrl ),
-			'size':$content.parent().width() - 20
+			'size':$content.parent().width() - 28
 		}).execute(function(urlResp){
 			
 			if( urlResp.error ) {
