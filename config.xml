@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "net.nemur.phosom"
+        versionCode="11" 
+        version   = "1.0.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Phosom</name>
+
+    <description>
+        Play with your photographic memory.
+    </description>
+
+    <author href="http://www.nemur.net" email="nemur@nemur.net">
+        Björn Þór Jónsson
+    </author>
+    
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/camera"/>
+    
+    <plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+    <plugin name="Camera" value="CDVCamera" />
+    
+    <!-- gap:plugin name="GAPlugin" / -->
+    
+    
+    <!-- icon src="assets/icons/ios/icon.png" gap:platform="ios" width="57" height="57" />
+    <icon src="assets/icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+    <icon src="assets/icons/ios/icon_at_2x.png" gap:platform="ios" width="114" height="114" />
+    
+    <icon src="assets/icons/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <icon src="assets/icons/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <icon src="assets/icons/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <icon src="assets/icons/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    
+    <gap:splash src="assets/splash/ios/Default.png" width="320" height="480" />
+    <gap:splash src="assets/splash/ios/Default_at_2x.png" width="640" height="960" />
+    <gap:splash src="assets/splash/ios/Default_iphone5.png" width="640" height="1136" />
+    <gap:splash src="assets/splash/ios/Default-Landscape.png" width="1024" height="768" />
+    <gap:splash src="assets/splash/ios/Default-Portrait.png" width="768" height="1024" />
+    
+    <gap:splash src="assets/splash/android/ldpi.png" gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="assets/splash/android/mdpi.png" gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="assets/splash/android/hdpi.png" gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="assets/splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
+    
+    <preference name="prerendered-icon" value="true" />
+    <preference name="splash-screen-duration" value="4000" / -->
+    
+    
+<!--
+    <access origin="http://islendingabok.is" />
+    <access origin="http://nemur.net" subdomains="true" />
+    <access origin="http://jquery.com" subdomains="true" />
+-->
+
+</widget>

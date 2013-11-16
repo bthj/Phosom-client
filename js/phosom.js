@@ -3,6 +3,7 @@ var g_allAPIsLoaded;
 var g_activeUser;
 var g_activeGame;
 var g_pageAfterLogin;
+var g_uploadUrl;
 
 $( document ).ready(function(){
 	
@@ -47,6 +48,37 @@ $( document ).ready(function(){
     	return url.substring(url.lastIndexOf('/')+1, url.length)
     }
     
+
+    
+    function handleResultFromResponse( result ) {
+        if( result.error ) {
+            $.mobile.loading( 'show', { 
+                html: 'Sending that picture failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
+                    +result.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+                textVisible:true, textonly: true} );
+            setTimeout( $.mobile.loading( 'hide' ), 5000 );
+        } else {
+        
+            console.log(result);
+            
+            $.mobile.changePage( '#phosom-challenge-result' );
+        }        
+    }
+    
+	function respondWithUrlToImage( url, sourceUrl, sourceTitle ) {
+		$.mobile.loading( 'show', { text: 'Sending...', textVisible:true});
+		
+		gapi.client.autoChallengeGameService.respondToChallengeWithUrl({
+			'gameId':g_activeGame.key.id,
+			'playerId':g_activeUser.key.id,
+			'url': url,
+			'sourceurl': sourceUrl,
+			'sourcetitle': sourceTitle
+		}).execute(function(respUrlSent){
+			
+            handleResultFromResponse( respUrlSent );
+		});
+	}
 	
     
     ///// button events
@@ -99,7 +131,69 @@ $( document ).ready(function(){
 		
 		return false;
 	});
+    
+    
+    $('#respond-with-upload').submit(function(){
+        $.mobile.loading( 'show', { text: 'Uploading...', textVisible:true});
+        
+	   var formData = new FormData($(this));
+        $.ajax({
+            url: g_uploadUrl,
+            type: 'POST',
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                if( myXhr.upload ) {
+                    myXhr.upload.addEventListener('progress', function(e){
+                        if( e.lenthComputable ) {
+                            $('#uploadProgress').text( Math.round(e.loaded / e.total)*100 + '%' );
+                        }
+                    }, false);
+                }
+                return myXhr;
+            },
+            success: function(data) {
+                
+                handleResultFromResponse( {'success': true} );
+            },
+            error: function() {
+                
+                handleResultFromResponse( {'error': {'message': 'File upload failed.'}} );
+            },
+            data: formData,
+            contentType: false,
+            processData: false
+        });
+		return false;
+	});
+    
+    $( "#button-camera" ).on( "click", function(event) {
+        event.preventDefault();
+        navigator.camera.getPicture(
+            function( imageURI  ) {
+                // TODO: upload with FileTransfer, like in http://zacvineyard.com/blog/2011/03/upload-a-file-to-a-remote-server-with-phonegap
+            },
+            function() {
+                // TODO: show error message.
+            },
+            {
+                quality : 75, 
+                destinationType : Camera.DestinationType.FILE_URI, 
+                sourceType : Camera.PictureSourceType.CAMERA, 
+                allowEdit : true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 600,
+                targetHeight: 600,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false 
+            }
+        );
+    });
 	
+    $( "#button-photogallery" ).on( "click", function(event){
+        // ath phonegap option:  Camera.MediaType.PICTURE , sbr http://docs.phonegap.com/en/2.5.0/cordova_camera_camera.md.html
+    });
+    
+    
 	$('#form-game-join').submit(function(){
 		$.mobile.loading( 'show', { text: 'Joining game...', textVisible:true});
 		
@@ -151,32 +245,6 @@ $( document ).ready(function(){
 		});
 	}
 	
-	function respondWithUrlToImage( url, sourceUrl, sourceTitle ) {
-		$.mobile.loading( 'show', { text: 'Sending...', textVisible:true});
-		
-		gapi.client.autoChallengeGameService.respondToChallengeWithUrl({
-			'gameId':g_activeGame.key.id,
-			'playerId':g_activeUser.key.id,
-			'url': url,
-			'sourceurl': sourceUrl,
-			'sourcetitle': sourceTitle
-		}).execute(function(respUrlSent){
-			
-			if( respUrlSent.error ) {
-				$.mobile.loading( 'show', { 
-					html: 'Sending that picture failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+respUrlSent.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
-					textVisible:true, textonly: true} );
-				setTimeout( $.mobile.loading( 'hide' ), 5000 );
-			} else {
-			
-				console.log(respUrlSent);
-				
-				$.mobile.changePage( '#phosom-challenge-result' );
-			}
-		});
-	}
-	
 	function respondWithUrlFromLink( event, ui ) {
 		event.preventDefault();
 		var $this = $(this);
@@ -220,40 +288,6 @@ $( document ).ready(function(){
 				$.mobile.loading( 'hide' );
 			}
 		});
-/*
-        $.ajax({
-            type: 'GET',
-            url: 'https://api.datamarket.azure.com/Bing/Search/v1/Composite?Sources=%27image%27&Query=%27'+query+'%27&Adult=%27On%27',
-            dataType: "json", 
-            context: this,
-            beforeSend: function(xhr){
-                // base64 encoded: ignore:key
-            	// as in http://social.msdn.microsoft.com/Forums/windowsazure/en-us/9f085915-81b6-488d-a348-1c3ca769d44f/migrating-to-windows-azure-bing-search-api-with-jquery-jsonp?forum=DataMarket
-            	// and https://datamarket.azure.com/dataset/explore/bing/search
-                xhr.setRequestHeader('Authorization', 'Basic OlpGeDI1Wmh1c0lUTGVPZ3JTd2FLSzhzTVVoUlJ4cGxPSjMvME10NGcvdWs=');
-            },
-            success: function(data,status){
-            	
-            	if( data.d !== undefined ) {
-            		var $gallery = $this.siblings('.gallery').first().empty();
-            		$.each(data.d.results, function(index, result){
-            			$.each(result.Image, function(index2, image){
-            				// <li><a href="images/full/001.jpg" rel="external"><img src="images/thumb/001.jpg" alt="Image 001" /></a></li>
-//            				var $li = $('<li/>');
-            				var $a = $('<a/>', {'href':image.MediaUrl, 'rel':'external', 'style':'padding:5px;'})
-            							.on('click', respondWithUrlFromLink);
-            				var $img = $('<img/>', {'src':image.Thumbnail.MediaUrl, 'alt':image.Title});
-            				$a.append( $img );
-//            				$li.append( $a );
-            				$gallery.append( $a );
-            			});
-            		});
-            		//var photoswipe = $gallery.find('a').photoSwipe({ enableMouseWheel: false , enableKeyboard: false });
-            	}
-            	$.mobile.loading( 'hide' );
-            }
-        });
-*/
         return false;
 	});
 	
@@ -373,6 +407,12 @@ $( document ).ready(function(){
 	
 	$( "div#phosom-challenge-response" ).on( "pagebeforeshow", function( event, ui ) {
 		var $content = $(this).find( 'div[data-role="content"]' );
+        
+        if( navigator.camera ) {
+            $("#camera-buttons").show();
+        } else {
+            $("#camera-buttons").hide();
+        }
 		$content.find('#challenge-response-with-url').val('');
 	});
 	
@@ -555,11 +595,30 @@ $( document ).ready(function(){
             localStorage.removeItem(userStorageKey);
         }
     });
-	
+
 });
 
 
+
+function onDeviceReady() {
+
+}
+document.addEventListener("deviceready", onDeviceReady, false);
+
+
+
 // cloud endpoint things
+
+function afterEndpointInit() {
+	
+    gapi.client.autoChallengeGameService.getUploadUrl().execute(function(urlInfo){
+        g_uploadUrl = urlInfo.uploadUrl;
+    });
+    
+    
+    
+    $.mobile.loading( 'hide' );
+}
 
 function endpointinit() {
 	$.mobile.loading( 'show', { text: 'Phone home...', textVisible:true});
@@ -571,8 +630,9 @@ function endpointinit() {
 				$(this).button('enable');
 				$(this).button('refresh');
 				g_allAPIsLoaded = true;
-				$.mobile.loading( 'hide' );
 			});
+            
+            afterEndpointInit();
 			
 			// TODO: signing things... see https://developers.google.com/appengine/docs/java/endpoints/consume_js
 		}
@@ -580,8 +640,9 @@ function endpointinit() {
 	
 	apisToLoad = 4;
 	
-	// var ENDPOINT_ROOT = '//' + window.location.host + '/_ah/api';
-	var ENDPOINT_ROOT = 'https://phosom-server.appspot.com' + '/_ah/api';
+	//var ENDPOINT_ROOT = '//' + window.location.host + '/_ah/api';
+	var ENDPOINT_ROOT = 'https://phosom-server.appspot.com/_ah/api';
+    //var ENDPOINT_ROOT = 'http://localhost:8888' + '/_ah/api';
 	gapi.client.load('playerfactory', 'v1', callback, ENDPOINT_ROOT);
 	gapi.client.load('autochallengegameendpoint', 'v1', callback, ENDPOINT_ROOT);
 	gapi.client.load('autoChallengeGameService', 'v1', callback, ENDPOINT_ROOT);
