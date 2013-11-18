@@ -34,6 +34,7 @@ h2{
 #phosom-game-creation{
             background-image: url(img/bg-clean-400px.png);   
 }
+
 /* WHAT IS THIS?!? */
 @media screen and (min-width: 1024px) {
     .ui-page {
@@ -41,11 +42,11 @@ h2{
 
     }
     #start{
-        background-image: url(img/Phosom-J-02-Large.png);
+        background-image: url(img/Phosom-J-02-400px.png);
         padding-top:100px
     }
     #phosom-index{
-        background-image: url(img/Phosom-J-02-Large.png);
+        background-image: url(img/Phosom-J-02-400px.png);
         padding-top:100px
     }
 /* This is just to throw in a text for <p>, id-name = ShowSize
@@ -61,11 +62,11 @@ h2{
 
     }
     #start{
-        background-image: url(img/Phosom-J-02-1024.png);
+        background-image: url(img/Phosom-J-02-400px.png);
         padding-top:400px
     }
     #phosom-index{
-        background-image: url(img/Phosom-J-02-1024.png);
+        background-image: url(img/Phosom-J-02-400px.png);
         padding-top:400px
     }
 }
@@ -76,11 +77,11 @@ h2{
         background-repeat:no-repeat;
     }
     #start{
-        background-image: url(img/Phosom-J-02-700px.png);
+        background-image: url(img/Phosom-J-02-400px.png);
         padding-top:370px;
     }
     #phosom-index{
-        background-image: url(img/Phosom-J-02-700px.png);
+        background-image: url(img/Phosom-J-02-400px.png);
         padding-top:350px;
      
     }
