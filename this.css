@@ -1,0 +1,162 @@
+html{
+    background:url(img/Phosom-J-02.png) no-repeat center center fixed;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+}
+img.Phosom-J-02.png{
+    min-height:100%;
+    min-width:1024px;
+}
+
+/* WHAT IS THIS?!? */
+@media screen and (min-width: 1024px) {
+    .ui-page {
+        background-size:cover;
+        font-family:fantasy;*/
+
+    }
+    #start{
+        background-image: url(img/Phosom-J-02-Large.png);
+        padding-top:100px
+    }
+    #Phosom-Start{
+        background-image: url(img/Phosom-J-02-Large.png);
+        padding-top:100px
+    }
+/* This is just to throw in a text for <p>, id-name = ShowSize
+
+#ShowSize:before{
+    content: "Joe's Task:";
+}*/
+}
+/* 700PX - In Progress*/
+@media screen and (min-width: 700px) {
+    .ui-page {
+        background-size:cover;
+        font-family:fantasy;
+
+    }
+    #start{
+        background-image: url(img/Phosom-J-02-1024.png);
+        padding-top:400px
+    }
+    #Phosom-Start{
+        background-image: url(img/Phosom-J-02-1024.png);
+        padding-top:400px
+    }
+}
+/* 700PX - Acceptable for Now */
+@media screen and (max-width: 700px) {
+    .ui-page {
+        background-size:cover;
+        background-repeat:no-repeat;
+        font-family:fantasy;
+    }
+    #start{
+        background-image: url(img/Phosom-J-02-700px.png);
+        padding-top:370px;
+    }
+    #Phosom-Start{
+        background-image: url(img/Phosom-J-02-700px.png);
+        padding-top:350px;
+     
+    }
+
+
+/* 400PX - LOOKS GOOD */
+@media screen and (max-width: 400px) {
+    .ui-page {
+        background-size:cover;
+        background-repeat:no-repeat;
+        font-family:fantasy;
+    }
+    #start{
+        background-image: url(img/Phosom-J-02-400px.png);
+        padding-top:370px;
+    }
+    #Phosom-Start{
+        background-image: url(img/Phosom-J-02-400px.png);
+        padding-top:350px;
+    }
+    
+}
+#tutorial1{
+    background-image: url(img/Phosom-J-04.png);
+}
+#tutorial2{
+    background-image: url(img/Phosom-J-05.png);
+}
+#tutorial3{
+    background-image: url(img/Phosom-J-06.png);
+}
+#tutorial4{
+    background-image: url(Img/Phosom-J-07.png);
+}
+#tutorial5{
+    background-image: url(img/Phosom-J-08.png);
+}
+#tutorial6{
+    background-image: url(img/Phosom-J-09.png);
+}
+#tutorial7{
+    background-image: url(img/Phosom-J-10.png);
+}
+#tutorial8{
+    background-image: url(img/Phosom-J-11.png);
+}
+#tutorial9{
+    background-image: url(img/Phosom-J-12.png);
+}
+#tutorial10{
+    background-image: url(img/Phosom-J-13.png);
+}
+#tutorial11{
+    background-image: url(img/Phosom-J-14.png);
+}
+#tutorial12{
+    background-image: url(img/Phosom-J-15.png);
+}
+#tutorial13{
+    background-image: url(img/Phosom-J-16.png);
+}
+#tutorial14{
+    background-image: url(img/Phosom-J-17.png);
+}
+#tutorial15{
+    background-image: url(img/Phosom-J-18.png);
+}
+#tutorial16{
+    background-image: url(img/Phosom-J-19.png);
+}
+#tutorial17{
+    background-image: url(img/Phosom-J-20.png);
+}
+#tutorial18{
+    background-image: url(img/Phosom-J-21.png);
+}
+#tutorial19{
+    background-image: url(img/Phosom-J-22.png);
+}
+#tutorial20{
+    background-image: url(img/Phosom-J-23.png);
+}
+#tutorial21{
+    background-image: url(img/Phosom-J-24.png);
+}
+#tutorial22{
+    background-image: url(img/Phosom-J-25.png);
+}
+#tutorial23{
+    background-image: url(img/Phosom-J-26.png);
+}
+#tutorial24{
+    background-image: url(img/Phosom-J-27.png);
+}
+#tutorial25{
+    background-image: url(img/Phosom-J-28.png);
+}
+#tutorial26{
+    background-image: url(img/Phosom-J-29.png);
+}
