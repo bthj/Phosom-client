@@ -188,7 +188,7 @@ $( document ).ready(function(){
 			targetWidth: 600,
 			targetHeight: 600,
 			// popoverOptions: CameraPopoverOptions, // http://docs.phonegap.com/en/1.8.0/cordova_camera_camera.md.html#CameraPopoverOptions
-			saveToPhotoAlbum: false 
+			saveToPhotoAlbum: true 
 		};
 	}
 	function uploadPhotoFromCamera( imageURI  ) {
