@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" id="net.nemur.phosom.client" version="1.0.0">
     <name>PhosomClient</name>
-    <description>Cordova Application</description>
+    <description>Phosom client</description>
     <author email="nemur@nemur.net" href="http://www.nemur.net">bthj</author>
     <access origin="*"/>
     <preference name="fullscreen" value="true"/>
@@ -14,7 +14,7 @@
     <!-- plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
     <plugin name="Camera" value="CDVCamera" / -->
 	
-	<uses-permission android:name="android.permission.CAMERA" />
+	<!-- uses-permission android:name="android.permission.CAMERA" />
 	<uses-feature android:name="android.hardware.camera" />
-	<uses-feature android:name="android.hardware.camera.autofocus" />
+	<uses-feature android:name="android.hardware.camera.autofocus" / -->
 </widget>
