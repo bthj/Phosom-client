@@ -4,24 +4,47 @@ html{
     -moz-background-size:cover;
     -o-background-size:cover;
     background-size:cover;
+    font-family:cursive;
 }
 img.Phosom-J-02.png{
     min-height:100%;
     min-width:1024px;
 }
-
+h2{
+    margin-top:-5px;   
+}
+#phosom-one-challenge{
+            background-image: url(img/bg-clean-400px.png);
+    }
+#phosom-challenge-response{
+            background-image: url(img/bg-clean-400px.png);
+}
+#phosom-challenge-result{
+            background-image: url(img/bg-clean-400px.png);
+}
+#phosom-challenges-overview{
+            background-image: url(img/bg-clean-400px.png);
+}
+#phosom-game-join{
+            background-image: url(img/bg-clean-400px.png);
+}
+#phosom-get-user{
+            background-image: url(img/bg-clean-400px.png);    
+}
+#phosom-game-creation{
+            background-image: url(img/bg-clean-400px.png);   
+}
 /* WHAT IS THIS?!? */
 @media screen and (min-width: 1024px) {
     .ui-page {
         background-size:cover;
-        font-family:fantasy;*/
 
     }
     #start{
         background-image: url(img/Phosom-J-02-Large.png);
         padding-top:100px
     }
-    #Phosom-Start{
+    #phosom-index{
         background-image: url(img/Phosom-J-02-Large.png);
         padding-top:100px
     }
@@ -35,14 +58,13 @@ img.Phosom-J-02.png{
 @media screen and (min-width: 700px) {
     .ui-page {
         background-size:cover;
-        font-family:fantasy;
 
     }
     #start{
         background-image: url(img/Phosom-J-02-1024.png);
         padding-top:400px
     }
-    #Phosom-Start{
+    #phosom-index{
         background-image: url(img/Phosom-J-02-1024.png);
         padding-top:400px
     }
@@ -52,13 +74,12 @@ img.Phosom-J-02.png{
     .ui-page {
         background-size:cover;
         background-repeat:no-repeat;
-        font-family:fantasy;
     }
     #start{
         background-image: url(img/Phosom-J-02-700px.png);
         padding-top:370px;
     }
-    #Phosom-Start{
+    #phosom-index{
         background-image: url(img/Phosom-J-02-700px.png);
         padding-top:350px;
      
@@ -70,16 +91,16 @@ img.Phosom-J-02.png{
     .ui-page {
         background-size:cover;
         background-repeat:no-repeat;
-        font-family:fantasy;
     }
     #start{
         background-image: url(img/Phosom-J-02-400px.png);
         padding-top:370px;
     }
-    #Phosom-Start{
+    #phosom-index{
         background-image: url(img/Phosom-J-02-400px.png);
         padding-top:350px;
     }
+    
     
 }
 #tutorial1{

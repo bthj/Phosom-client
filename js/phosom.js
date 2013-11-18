@@ -426,18 +426,20 @@ $( document ).ready(function(){
 
 				console.log(urlResp);
 				
-				$content.prepend( $('<h2/>').text('Game # ' + g_activeGame.key.id + " - " +g_activeUser.playerScreenName+ ", here's your challenge!") );
+				$content.prepend( $('<h2/>').html('Game # ' + g_activeGame.key.id + '<br>' +g_activeUser.playerScreenName+ ", here's your challenge!") );
+				
+
+				$content.append( $('<img/>',{'src':urlResp.challengePhotoUrl}) );
+                if( undefined === navigator.camera ) {
+                    $content.append( $('<a/>', {
+					   'text': 'Photo by: '+g_activeGame.challengeInfo.challengeOwnerName, 
+                        'href':g_activeGame.challengeInfo.challengeProfileUrl, 
+                        'target':'_blank', 'style':'display:block;text-align:right;'} ) );                    
+                }
 				$content.append( $('<a/>', {
 					'href':'#phosom-challenge-response', 
 					'data-role':'button',
 					'text':'Respond to it!'}) );
-
-				$content.append( $('<img/>',{'src':urlResp.challengePhotoUrl}) );
-				$content.append( $('<a/>', {
-					'text': 'Photo by: '+g_activeGame.challengeInfo.challengeOwnerName, 
-					'href':g_activeGame.challengeInfo.challengeProfileUrl, 
-					'target':'_blank', 'style':'display:block;text-align:right;'} ) );
-				
 				$content.waitForImages(function(){
 					
 					$.mobile.loading( 'hide' );
