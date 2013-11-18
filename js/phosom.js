@@ -54,7 +54,7 @@ $( document ).ready(function(){
         if( result.error ) {
             $.mobile.loading( 'show', { 
                 html: 'Sending that picture failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-                    +result.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+                    +result.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
                 textVisible:true, textonly: true} );
             setTimeout( $.mobile.loading( 'hide' ), 5000 );
         } else {
@@ -110,7 +110,7 @@ $( document ).ready(function(){
 			if( resp.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'Player creation failed for some fun reason.<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+resp.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+resp.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 				
@@ -166,26 +166,69 @@ $( document ).ready(function(){
 		return false;
 	});
     
+	function win(r) {
+		console.log("Code = " + r.responseCode);
+		console.log("Response = " + r.response);
+		console.log("Sent = " + r.bytesSent);
+		
+		handleResultFromResponse( {'success': true} );
+	}
+	function fail(error) {
+
+		handleResultFromResponse( {'error': {
+				'message': 'File upload failed.  Code = ' + error.code}} );
+	}
+	if( navigator.camera ) {
+		var devicePictureOptions = {
+			quality : 75, 
+			destinationType : navigator.camera.DestinationType.FILE_URI, 
+			sourceType : navigator.camera.PictureSourceType.CAMERA, 
+			allowEdit : true,
+			encodingType: navigator.camera.EncodingType.JPEG,
+			targetWidth: 600,
+			targetHeight: 600,
+			// popoverOptions: CameraPopoverOptions, // http://docs.phonegap.com/en/1.8.0/cordova_camera_camera.md.html#CameraPopoverOptions
+			saveToPhotoAlbum: false 
+		};
+	}
+	function uploadPhotoFromCamera( imageURI  ) {
+		$.mobile.loading( 'show', { text: 'Uploading...', textVisible:true});
+
+		var options = new FileUploadOptions();
+		options.fileKey="photo";
+		options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+		options.mimeType="image/jpeg";
+
+		var params = new Object();
+		params.gameid = g_activeGame.key.id;
+		params.playerid = g_activeUser.key.id;
+
+		options.params = params;
+
+		var ft = new FileTransfer();
+		ft.upload(imageURI, g_uploadUrl, win, fail, options);
+	}
+	function errorInUploadFromCamera( message ) {
+		$.mobile.loading( 'show', { 
+			html: 'Capturing that picture failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
+				+message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
+			textVisible:true, textonly: true} );
+		setTimeout( $.mobile.loading( 'hide' ), 5000 );
+	}
     $( "#button-camera" ).on( "click", function(event) {
         event.preventDefault();
         navigator.camera.getPicture(
-            function( imageURI  ) {
-                // TODO: upload with FileTransfer, like in http://zacvineyard.com/blog/2011/03/upload-a-file-to-a-remote-server-with-phonegap
-            },
-            function() {
-                // TODO: show error message.
-            },
-            {
-                quality : 75, 
-                destinationType : Camera.DestinationType.FILE_URI, 
-                sourceType : Camera.PictureSourceType.CAMERA, 
-                allowEdit : true,
-                encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 600,
-                targetHeight: 600,
-                popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: false 
-            }
+            uploadPhotoFromCamera,
+            errorInUploadFromCamera,
+			$.extend({sourceType : navigator.camera.PictureSourceType.CAMERA}, devicePictureOptions)
+        );
+    });
+	$( "#button-photogallery" ).on( "click", function(event) {
+        event.preventDefault();
+        navigator.camera.getPicture(
+            uploadPhotoFromCamera,
+            errorInUploadFromCamera,
+			$.extend({sourceType : navigator.camera.PictureSourceType.PHOTOLIBRARY}, devicePictureOptions)
         );
     });
 	
@@ -206,7 +249,7 @@ $( document ).ready(function(){
 			if( game.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'An error came up while joining the game.<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+game.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+game.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 				
@@ -234,7 +277,7 @@ $( document ).ready(function(){
 			if( game.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'An error came up while looking up that game.<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+game.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+game.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 
@@ -304,7 +347,7 @@ $( document ).ready(function(){
 			if( playerAddedResp.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'Joining with the game failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+playerAddedResp.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+playerAddedResp.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 			
@@ -345,7 +388,7 @@ $( document ).ready(function(){
 					if( resp.error ) {
 						$.mobile.loading( 'show', { 
 							html: 'Oh noes, we have errorses<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-								+resp.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+								+resp.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 							textVisible:true, textonly: true} );
 						//setTimeout( $.mobile.loading( 'hide' ), 5000 );
 					} else {
@@ -377,7 +420,7 @@ $( document ).ready(function(){
 			if( urlResp.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'Fetching the challenge failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+urlResp.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+urlResp.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 
@@ -407,7 +450,6 @@ $( document ).ready(function(){
 	
 	$( "div#phosom-challenge-response" ).on( "pagebeforeshow", function( event, ui ) {
 		var $content = $(this).find( 'div[data-role="content"]' );
-        
         if( navigator.camera ) {
             $("#camera-buttons").show();
         } else {
@@ -448,7 +490,7 @@ $( document ).ready(function(){
 			if( challengesInfo.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'Fetching the results failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+challengesInfo.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+challengesInfo.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 
@@ -477,12 +519,15 @@ $( document ).ready(function(){
 						'text':'Photo by: '+oneChallenge.challengePhotoSourceTitle, 
 						'href':oneChallenge.challengePhotoSourceUrl, 'target':'_blank', 
 						'style':'display:block;white-space:pre-wrap;'}) );
+					
 					$responseDiv.append( $('<img/>',{
 						'src':oneChallenge.responsePhotoUrl, 'style':'padding:5px;'}) );
-                    $responseDiv.append( $('<a/>', {
-						'text':'Source: '+oneChallenge.responsePhotoSourceTitle, 
-						'href':oneChallenge.responsePhotoSourceUrl, 'target':'_blank', 
-						'style':'display:block;white-space:pre-wrap;'}) );
+					if( oneChallenge.responsePhotoSourceTitle ) {
+						$responseDiv.append( $('<a/>', {
+							'text':'Source: '+oneChallenge.responsePhotoSourceTitle, 
+							'href':oneChallenge.responsePhotoSourceUrl, 'target':'_blank', 
+							'style':'display:block;white-space:pre-wrap;'}) );						
+					}
 					
 					$oneDIV.append( $challengeDiv, $responseDiv );
 					
@@ -563,7 +608,7 @@ $( document ).ready(function(){
 			if( challengesInfo.error ) {
 				$.mobile.loading( 'show', { 
 					html: 'Fetching the list of played challenges failed :\'(<br />If you\'d like you can email this message<br/>to the phosies at nemur@nemur.net:<br/><br/><strong>'
-						+challengesInfo.error.message+'</strong><br/><br/><a href="/">Try again...</a>', 
+						+challengesInfo.error.message+'</strong><br/><br/><a href="#phosom-index">Try again...</a>', 
 					textVisible:true, textonly: true} );
 			} else {
 
@@ -642,7 +687,7 @@ function endpointinit() {
 	
 	//var ENDPOINT_ROOT = '//' + window.location.host + '/_ah/api';
 	var ENDPOINT_ROOT = 'https://phosom-server.appspot.com/_ah/api';
-    //var ENDPOINT_ROOT = 'http://localhost:8888' + '/_ah/api';
+    //var ENDPOINT_ROOT = 'http://192.168.1.102:8888' + '/_ah/api';
 	gapi.client.load('playerfactory', 'v1', callback, ENDPOINT_ROOT);
 	gapi.client.load('autochallengegameendpoint', 'v1', callback, ENDPOINT_ROOT);
 	gapi.client.load('autoChallengeGameService', 'v1', callback, ENDPOINT_ROOT);

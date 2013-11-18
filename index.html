@@ -6,14 +6,14 @@
 		
 		<title>Phosom</title>
 		   
-		<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">
         <link rel="stylesheet" href="css/phosom.css">
 		
-		<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.waitforimages.min.js"></script>
 		<script src="js/phosom.js"></script>
 		<script src="js/simi.js"></script>
-		<script src="//code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>
 		
 		<script src="https://apis.google.com/js/client.js?onload=endpointinit"></script>
 	</head>
@@ -90,8 +90,8 @@
 					<div data-role="collapsible">
 						<h3>Upload a response image</h3>
                         <form action="/upload" method="post" id="respond-with-upload">
-                            <label for="file">Image file (TODO):</label>
-                            <input type="file" name="image" id="image" value="">
+                            <label for="image-file-input">Image file (TODO):</label>
+                            <input type="file" name="photo" id="image-file-input">
                             <input type="submit" value="Send it!" />
                         </form>
                         <span id="uploadProgress"></span>
@@ -156,6 +156,12 @@
 		        <h2>Resetteted storage!</h2>
 		    </div>
 		</div>
+		
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
 		
 	</body>
 </html>
