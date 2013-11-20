@@ -571,7 +571,7 @@ $( document ).ready(function(){
 
 				$content.append( $('<a/>', {
 					'href':'#phosom-game-creation', 'data-role':'button', 'data-theme':'b', 
-					'text':'Have another go!'}) );
+					'text':'New game!'}) );
 				$content.append( $('<a/>', {
 					'href':'#phosom-index', 'data-role':'button', 'text':'Go home...'}) );
 				
@@ -628,6 +628,10 @@ $( document ).ready(function(){
 				});
 				
 				$content.append( $listview );
+				
+				$content.append( $('<a/>', {
+					'href':'#phosom-index', 'data-role':'button', 'text':'Go home...'}) );
+				
 				$content.trigger('create');
 
 				$.mobile.loading( 'hide' );
@@ -671,7 +675,7 @@ function endpointinit() {
 	$.mobile.loading( 'show', { text: 'Phone home...', textVisible:true});
 	var apisToLoad;
 	var callback = function() {
-		if( --apisToLoad == 0 ) {
+		if( --apisToLoad === 0 ) {
 			// let's enable buttons now that all APIs have loaded
 			$('#'+$.mobile.activePage.attr('id')).find('[type="submit"], [type="button"]').each(function(){
 				$(this).button('enable');
