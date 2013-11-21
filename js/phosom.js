@@ -426,20 +426,23 @@ $( document ).ready(function(){
 
 				console.log(urlResp);
 				
-				$content.prepend( $('<h2/>').html('Game # ' + g_activeGame.key.id + '<br>' +g_activeUser.playerScreenName+ ", here's your challenge!") );
+				//$content.prepend( $('<h2/>').html('Game # ' + g_activeGame.key.id + '<br>' +g_activeUser.playerScreenName+ ", here's your challenge!") );
+				$content.prepend( $('<h2/>').html('Game # ' + g_activeGame.key.id + '<br>' +g_activeUser.playerScreenName+ ", Phosie tænker på:") );
 				
 
 				$content.append( $('<img/>',{'src':urlResp.challengePhotoUrl}) );
-                if( undefined === navigator.camera ) {
-                    $content.append( $('<a/>', {
-					   'text': 'Photo by: '+g_activeGame.challengeInfo.challengeOwnerName, 
-                        'href':g_activeGame.challengeInfo.challengeProfileUrl, 
-                        'target':'_blank', 'style':'display:block;text-align:right;'} ) );                    
-                }
+//                if( undefined === navigator.camera ) {
+//                    $content.append( $('<a/>', {
+//					   'text': 'Photo by: '+g_activeGame.challengeInfo.challengeOwnerName, 
+//                        'href':g_activeGame.challengeInfo.challengeProfileUrl, 
+//                        'target':'_blank', 'style':'display:block;text-align:right;'} ) );                    
+//                }
 				$content.append( $('<a/>', {
 					'href':'#phosom-challenge-response', 
 					'data-role':'button',
-					'text':'Respond to it!'}) );
+					// 'text':'Respond to it!'
+					'text':'Hjælp Phosie!'
+				}) );
 				$content.waitForImages(function(){
 					
 					$.mobile.loading( 'hide' );
@@ -454,8 +457,12 @@ $( document ).ready(function(){
 		var $content = $(this).find( 'div[data-role="content"]' );
         if( navigator.camera ) {
             $("#camera-buttons").show();
+			$("#url-upload").hide();
+			$("#file-upload").hide();
         } else {
             $("#camera-buttons").hide();
+			$("#url-upload").show();
+			$("#file-upload").show();
         }
 		$content.find('#challenge-response-with-url').val('');
 	});
@@ -481,7 +488,8 @@ $( document ).ready(function(){
 	}
 	$( "div#phosom-challenge-result" ).on( "pageshow", function( event, ui ) {
 		var $content = $(this).find( 'div[data-role="content"]' );
-		$.mobile.loading( 'show', { text: 'Getting grades...', textVisible:true});
+		// $.mobile.loading( 'show', { text: 'Getting grades...', textVisible:true});
+		$.mobile.loading( 'show', { text: 'Phosie bestemmer sig...', textVisible:true});
 		
 		gapi.client.autoChallengeGameService.getChallengeAndResponseInfo({
 			'gameId':g_activeGame.key.id,
@@ -498,7 +506,8 @@ $( document ).ready(function(){
 
 				console.log(challengesInfo);
 				
-				$content.append( $('<h2/>').text('Game # ' + g_activeGame.key.id + ' - results!') );
+				// $content.append( $('<h2/>').text('Game # ' + g_activeGame.key.id + ' - results!') );
+				$content.append( $('<h2/>').text('Game # ' + g_activeGame.key.id + ' - resultat!') );
 				
 				var $listview = $('<ul>', {'data-role':'listview', 'data-inset':'true'});
 				var listToSort = [];
@@ -507,34 +516,37 @@ $( document ).ready(function(){
 					var $oneDIV = $('<div/>');
 					
 					if( oneChallenge.playerId == g_activeUser.key.id ) {
-						$oneDIV.append( $('<h3/>', {'text': "Your response"}) );
+						//$oneDIV.append( $('<h3/>', {'text': "Your response"}) );
+						$oneDIV.append( $('<h3/>', {'text': "Dit billede"}) );
 					} else {
-						$oneDIV.append( $('<h3/>', {'text': oneChallenge.playerName + "'s response"}) );
+						//$oneDIV.append( $('<h3/>', {'text': oneChallenge.playerName + "'s response"}) );
+						$oneDIV.append( $('<h3/>', {'text': oneChallenge.playerName + "'s billede"}) );
 					}
 					
-					var $challengeDiv = $('<div/>', {'style':'float:left;width:46%;'});
-					var $responseDiv = $('<div/>', {'style':'float:right;width:46%;'});
+					var $challengeDiv = $('<div/>', {'style':'float:right;width:46%;'});
+					var $responseDiv = $('<div/>', {'style':'float:left;width:46%;'});
 					var $scoreDiv = $('<div/>', {'style':'display:block;clear:both;padding-top:10px;'});
 					$challengeDiv.append( $('<img/>',{
 						'src':oneChallenge.challengePhotoUrl, 'style':'padding:5px;' }) );
-					$challengeDiv.append( $('<a/>', {
-						'text':'Photo by: '+oneChallenge.challengePhotoSourceTitle, 
-						'href':oneChallenge.challengePhotoSourceUrl, 'target':'_blank', 
-						'style':'display:block;white-space:pre-wrap;'}) );
+//					$challengeDiv.append( $('<a/>', {
+//						'text':'Photo by: '+oneChallenge.challengePhotoSourceTitle, 
+//						'href':oneChallenge.challengePhotoSourceUrl, 'target':'_blank', 
+//						'style':'display:block;white-space:pre-wrap;'}) );
 					
 					$responseDiv.append( $('<img/>',{
 						'src':oneChallenge.responsePhotoUrl, 'style':'padding:5px;'}) );
-					if( oneChallenge.responsePhotoSourceTitle ) {
-						$responseDiv.append( $('<a/>', {
-							'text':'Source: '+oneChallenge.responsePhotoSourceTitle, 
-							'href':oneChallenge.responsePhotoSourceUrl, 'target':'_blank', 
-							'style':'display:block;white-space:pre-wrap;'}) );						
-					}
+//					if( oneChallenge.responsePhotoSourceTitle ) {
+//						$responseDiv.append( $('<a/>', {
+//							'text':'Source: '+oneChallenge.responsePhotoSourceTitle, 
+//							'href':oneChallenge.responsePhotoSourceUrl, 'target':'_blank', 
+//							'style':'display:block;white-space:pre-wrap;'}) );						
+//					}
 					
-					$oneDIV.append( $challengeDiv, $responseDiv );
+					$oneDIV.append( $responseDiv, $challengeDiv );
 					
 					var similarityPercentage = Math.round((oneChallenge.score/1000)*100);
-					var gradingText = 'Phosie is ' + Math.round((oneChallenge.score/1000)*100) + '% happy with the photo you have chosen';
+					// var gradingText = 'Phosie is ' + Math.round((oneChallenge.score/1000)*100) + '% happy with the photo you have chosen';
+					var gradingText = 'Phosie er ' + Math.round((oneChallenge.score/1000)*100) + '% tilfreds med dit billede';
 					if( similarityPercentage <= 30 ) {
 						gradingText += ' :\'(';
 					} else if( similarityPercentage <= 50 ) {
@@ -571,9 +583,13 @@ $( document ).ready(function(){
 
 				$content.append( $('<a/>', {
 					'href':'#phosom-game-creation', 'data-role':'button', 'data-theme':'b', 
-					'text':'New game!'}) );
+					//'text':'New game!'}) );
+					'text':'Nyt spil!'}) );
 				$content.append( $('<a/>', {
-					'href':'#phosom-index', 'data-role':'button', 'text':'Go home...'}) );
+					'href':'#phosom-index', 'data-role':'button', 
+					// 'text':'Go home...'
+					'text':'Til start...'
+				}) );
 				
 				$listview.waitForImages(function(){
 					

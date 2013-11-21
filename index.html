@@ -39,8 +39,7 @@
         <div data-role="page" id="phosom-index">
 			
 			<div data-role="content">
-				<div><input type="button" id="btn-create-game" value="Play a game" />
-               </div>
+				<div><input type="button" id="btn-create-game" value="Play a game" /></div>
 				<div><input type="button" id="btn-game-overview" value="My games" /></div>
                 
 				<div><input type="button" id="btn-game-join" value="Join a game" />
@@ -63,29 +62,31 @@
 		<div data-role="page" id="phosom-challenge-response">
 			
 			<div data-role="content">
-				<h2>one challenge!</h2>
+				<!-- h2>one challenge!</h2 -->
+				<h2>Hvordan vil du hjælpe Phosie?</h2>
                 <div id="camera-buttons" style="display:none;">
                     <a data-role="button" href="#camera" id="button-camera">
-                        Take a picture
+                        Tag et billede!
                     </a>
                     <p style="text-align:center;">~ or ~</p>
-                    <a data-role="button" href="#photogallery" id="button-photogallery">
+                    <!-- a data-role="button" href="#photogallery" id="button-photogallery">
                         Choose from gallery
                     </a>
-                    <p style="text-align:center;">~ or ~</p>
+                    <p style="text-align:center;">~ or ~</p -->
                 </div>
 				<div data-role="collapsible-set">
 					<div data-role="collapsible" data-collapsed="false">
-						<h3>Find a response image</h3>
+						<h3>Søg på nettet</h3>
 						<form action="/imagesearch" method="post" id="image-search">
-							<label for="input-image-search">Image search:</label>
+							<!-- label for="input-image-search">Image search:</label -->
 							<input type="search" name="image-search" id="input-image-search" value="" 
-								placeholder="Image search keyword(s)..." />
-							<input type="submit" value="Find some!" />
+								placeholder="Billedsøgning..." />
+							<!-- input type="submit" value="Search!" / -->
+							<input type="submit" value="Søg!" />
 						</form>
 						<div class="gallery"></div>
 					</div>
-					<div data-role="collapsible">
+					<div data-role="collapsible" id="url-upload" style="display:none;">
 						<h3>Post an URL to a response image</h3>
 						<form action="/respondwithurl" method="post" id="respond-with-url">
 							<label for="challenge-response-with-url">URL to an image:</label>
@@ -93,7 +94,7 @@
 							<input type="submit" value="Send it!" />
 						</form>
 					</div>
-					<div data-role="collapsible">
+					<div data-role="collapsible" id="file-upload" style="display:none;">
 						<h3>Upload a response image</h3>
                         <form action="/upload" method="post" id="respond-with-upload">
                             <label for="image-file-input">Image file (TODO):</label>
