@@ -76,6 +76,7 @@ $( document ).ready(function(){
 			'sourcetitle': sourceTitle
 		}).execute(function(respUrlSent){
 			
+			console.log(respUrlSent);
             handleResultFromResponse( respUrlSent );
 		});
 	}
@@ -127,7 +128,7 @@ $( document ).ready(function(){
 	
 	$('#respond-with-url').submit(function(){
 		
-		respondWithUrlToImage( $('#challenge-response-with-url').val() );
+		respondWithUrlToImage( $('#challenge-response-with-url').val(), "", "" );
 		
 		return false;
 	});
@@ -232,9 +233,9 @@ $( document ).ready(function(){
         );
     });
 	
-    $( "#button-photogallery" ).on( "click", function(event){
-        // ath phonegap option:  Camera.MediaType.PICTURE , sbr http://docs.phonegap.com/en/2.5.0/cordova_camera_camera.md.html
-    });
+//    $( "#button-photogallery" ).on( "click", function(event){
+//        // ath phonegap option:  Camera.MediaType.PICTURE , sbr http://docs.phonegap.com/en/2.5.0/cordova_camera_camera.md.html
+//    });
     
     
 	$('#form-game-join').submit(function(){
